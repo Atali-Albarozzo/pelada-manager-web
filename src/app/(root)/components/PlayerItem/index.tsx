@@ -118,13 +118,13 @@ export default function PlayerItem({
       className={`relative font-semibold bg-black text-white p-2 pl-6 pr-4 border-b-4 border-b-rose rounded-tr-xl rounded-br-xl mb-1 ${before} ${disabledStyle}`}
     >
       <div className='flex flex-row justify-between items-center'>
-        <div>
+        <div className='w-full'>
           <>
-            <span className='mr-4'>{`${number}.`}</span>
+            <span className='mr-2'>{`${number}.`}</span>
             {editMode || isNewPlayer ? (
               <input
                 ref={inputRef}
-                className='text-black px-2 outline-none'
+                className='text-black px-2 outline-none w-4/5'
                 defaultValue={player.name}
                 onKeyDown={(e) => e.key === 'Enter' && handleConfirm()}
               />
