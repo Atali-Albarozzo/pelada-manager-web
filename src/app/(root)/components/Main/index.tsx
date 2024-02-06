@@ -1,11 +1,12 @@
 'use client';
 
 import Button from '@/components/button';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PlayerItem from '../PlayerItem';
 import { usePlayers } from '@/contexts/PlayersContext';
 
 import { Player } from '@/models/player';
+import { RiThumbUpFill } from 'react-icons/ri';
 
 export default function Main() {
   const { state, drawTeams } = usePlayers();
@@ -15,6 +16,11 @@ export default function Main() {
   );
   const [teams, setTeams] = useState<Map<number, Array<Player>>>(new Map());
   const [showTeams, setShowTeams] = useState<boolean>(false);
+
+  const activePlayersCount = useMemo(
+    () => state.players.filter((p) => p.active).length,
+    [state.players]
+  );
 
   useEffect(() => {
     setPlayersList(state.players);
@@ -56,7 +62,13 @@ export default function Main() {
           </section>
         ) : (
           <section>
-            <h2 className='mb-4'>Craques</h2>
+            <div className='flex justify-between items-center mb-4'>
+              <h2>Craques</h2>
+              <span className='flex text-sm items-center'>
+                <RiThumbUpFill size={20} className='mr-2' />
+                Confirmados: {activePlayersCount}
+              </span>
+            </div>
             <ul>
               {playersList.map((player, index) => (
                 <PlayerItem
